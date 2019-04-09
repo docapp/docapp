@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.isst.webLab.dao.DoctorDAO;
 import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
+import es.upm.dit.isst.webLab.dao.PatientDAO;
+import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
 import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
 
@@ -19,10 +21,12 @@ public class AdminServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		DoctorDAO pdao = DoctorDAOImplementation.getInstance();
-		req.getSession().setAttribute( "doctor_list", pdao.readAll() );
+		DoctorDAO ddao = DoctorDAOImplementation.getInstance();
+		req.getSession().setAttribute( "doctor_list", ddao.readAll() );
 		AppointmentDAO adao = AppointmentDAOImplementation.getInstance();
 		req.getSession().setAttribute( "appointment_list", adao.readAll() );
+		PatientDAO pdao = PatientDAOImplementation.getInstance();
+		req.getSession().setAttribute( "patient_list", pdao.readAll() );
 		
 		getServletContext().getRequestDispatcher( "/AdminView.jsp" ).forward( req, resp );
 	}
