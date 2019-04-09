@@ -67,6 +67,42 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<h3>Registrar nuevo paciente</h3>
+		<form action="CreatePatientServlet" method="post">
+			<p>
+				Nombre: <input type="text" name="name" />
+			</p>
+			<p>
+				Apellidos: <input type="text" name="surname" />
+			</p>
+			<p>
+				Fecha de nacimiento: <input type="date" name="birth" />
+			</p>
+			<p>
+				Password: <input type="password" name="password" />
+			</p>
+			<p>
+				<button type="submit">Registrar paciente</button>
+			</p>
+		</form>
+		<h3>Listado de pacientes</h3>
+		<table border="1">
+			<tr>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Fecha de nacimiento</th>
+				<th>Citas</th>
+				
+			</tr>
+			<c:forEach items="${patient_list}" var="pati">
+				<tr>
+					<td>${pati.name }</td>
+					<td>${pati.surname }</td>
+					<td>${pati.birth }</td>
+					<td>${fn:length(pati.appointments) }</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</shiro:hasRole>
 </body>
 </html>
