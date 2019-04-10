@@ -13,7 +13,7 @@
 	<shiro:guest>
 		<h2>Login</h2>
 		<form action="LoginServlet" method="post">
-			Email: <input type="text" name="email" placeholder="Email" />
+			Name: <input type="text" name="id" placeholder="Identifier" />
 			Password: <input type="password" name="password"
 				placeholder="Password" />
 			<button type="submit">Login</button>
@@ -27,7 +27,7 @@
 				Fecha: <input type="date" name="date" />
 			</p>
 			<p>
-				Hora de inicio: <input type="time" name="start_time" />
+				Hora de inicio: <input type="time" step="1" name="start_time" />
 			</p>
 			
 			<p>
