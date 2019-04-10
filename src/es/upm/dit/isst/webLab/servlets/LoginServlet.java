@@ -26,19 +26,21 @@ public class LoginServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String email = req.getParameter( "email" );
+		String id = req.getParameter( "id" );
 		String pass = req.getParameter( "password" );
 		Subject currentUser = SecurityUtils.getSubject();
 		if ( !currentUser.isAuthenticated() ) {
-			UsernamePasswordToken token = new UsernamePasswordToken( email, pass );
+			UsernamePasswordToken token = new UsernamePasswordToken( id, pass );
 			try {
 				currentUser.login( token );
 				if ( currentUser.hasRole( "admin" ) )
 					resp.sendRedirect( req.getContextPath() + "/AdminServlet" );
-				else if ( currentUser.hasRole( "professor" ) )
+				else if ( currentUser.hasRole( "doctor" ) )
 					resp.sendRedirect( req.getContextPath() + "/DoctorServlet?id=" + currentUser.getPrincipal() );
-				else
+				else if ( currentUser.hasRole( "patient" ) )
 					resp.sendRedirect( req.getContextPath() + "/AppointmentServlet?pat_id=" + currentUser.getPrincipal() );
+				else 
+					resp.sendRedirect( req.getContextPath() + "/LoginServlet");
 			} catch ( Exception e ) {
 				resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
 			}
