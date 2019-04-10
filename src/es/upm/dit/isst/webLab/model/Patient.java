@@ -16,8 +16,7 @@ import javax.persistence.OneToMany;
 public class Patient implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private String dni;
 	
 	private String name;
 	private String surname;
@@ -28,12 +27,12 @@ public class Patient implements Serializable {
 	@OneToMany(mappedBy = "app_patient", fetch = FetchType.EAGER)
 	private Collection<Appointment> appointments;
 
-	public Integer getId() {
-		return id;
+	public String getDni() {
+		return dni;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String getName() {
