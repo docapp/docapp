@@ -26,10 +26,10 @@ public class AppointmentServlet extends HttpServlet {
 
     }
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer pat_id = Integer.valueOf(req.getParameter("pat_id"));
+		String pat_dni = req.getParameter("pat_dni");
 		
 		PatientDAO pdao = PatientDAOImplementation.getInstance();
-		Patient p = pdao.read(pat_id);
+		Patient p = pdao.read(pat_dni);
 		
 		req.getSession().setAttribute( "appointments", p.getAppointments() );
 		

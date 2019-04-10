@@ -24,10 +24,10 @@ public class DoctorServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer id = Integer.valueOf(req.getParameter("id"));
+		String dni = req.getParameter("dni");
 		
 		DoctorDAO pdao = DoctorDAOImplementation.getInstance();
-		Doctor p = pdao.read(id);
+		Doctor p = pdao.read(dni);
 		
 		req.getSession().setAttribute( "appointments", p.getAppointments());
 		getServletContext().getRequestDispatcher( "/DoctorView.jsp" ).forward( req, resp );

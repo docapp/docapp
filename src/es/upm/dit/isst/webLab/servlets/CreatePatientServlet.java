@@ -19,6 +19,7 @@ import es.upm.dit.isst.webLab.model.Patient;
 public class CreatePatientServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String dni = req.getParameter( "dni" );
 		String name = req.getParameter( "name" );
 		String surname = req.getParameter( "surname" );
 		String birth = req.getParameter( "birth" );
@@ -29,6 +30,7 @@ public class CreatePatientServlet extends HttpServlet {
 	
 		
 		Patient patient = new Patient();
+		patient.setDni(dni);
 		patient.setName( name );
 		patient.setSurname( surname );
 		patient.setBirth(birth_date);

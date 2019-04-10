@@ -19,7 +19,7 @@
 <h2>Vista de doctor</h2>
 
 
-<h2>Tus citas</h2>
+<h2>Sus citas programadas</h2>
 
 <table border="1">
 	<tr>

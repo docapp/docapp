@@ -22,6 +22,9 @@
 		<h3>Crear doctor nuevo</h3>
 		<form action="CreateDoctorServlet" method="post">
 			<p>
+				DNI: <input type="text" name="dni" />
+			</p>
+			<p>
 				Nombre: <input type="text" name="name" />
 			</p>
 			<p>
@@ -69,6 +72,9 @@
 		</table>
 		<h3>Registrar nuevo paciente</h3>
 		<form action="CreatePatientServlet" method="post">
+			<p>
+				DNI: <input type="text" name="dni" />
+			</p>
 			<p>
 				Nombre: <input type="text" name="name" />
 			</p>

@@ -20,8 +20,8 @@
 
 <table border="1">
 	<tr>
+		<th>Día</th>
 		<th>Hora</th>
-		<th>DNI</th>
 		
 	</tr>
 		<c:forEach items="${appointments}" var="appi">

@@ -18,6 +18,7 @@ import es.upm.dit.isst.webLab.model.Doctor;
 public class CreateDoctorServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String dni = req.getParameter( "dni" );
 		String name = req.getParameter( "name" );
 		String surname = req.getParameter( "surname" );
 		String specialty = req.getParameter( "specialty" );
@@ -25,6 +26,7 @@ public class CreateDoctorServlet extends HttpServlet {
 		String password = req.getParameter( "password" );
 		
 		Doctor doctor = new Doctor();
+		doctor.setDni(dni);
 		doctor.setName( name );
 		doctor.setSurname( surname );
 		doctor.setSpecialty( specialty );

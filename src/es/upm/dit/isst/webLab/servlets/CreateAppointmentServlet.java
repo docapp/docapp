@@ -24,19 +24,19 @@ public class CreateAppointmentServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer doc_id = Integer.valueOf(req.getParameter( "doc" ));
+		String doc_dni= req.getParameter( "doc_dni" );
 		
-		Integer pat_id = Integer.valueOf(req.getParameter( "pat_id" ));
+		String pat_dni = req.getParameter( "pat_dni" );
 		java.sql.Date date = Date.valueOf(req.getParameter( "date" ));
 		String t = req.getParameter("start_time");
 		java.sql.Time time = java.sql.Time.valueOf(t);
 		
 
 		DoctorDAO ddao = DoctorDAOImplementation.getInstance();
-		Doctor doctor = ddao.read(doc_id);
+		Doctor doctor = ddao.read(doc_dni);
 
 		PatientDAO pdao = PatientDAOImplementation.getInstance();
-		Patient patient = pdao.read(pat_id);
+		Patient patient = pdao.read(pat_dni);
 		
 		Appointment app = new Appointment();
 		app.setApp_doctor(doctor);
