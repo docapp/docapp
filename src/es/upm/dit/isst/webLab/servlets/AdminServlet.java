@@ -12,6 +12,8 @@ import es.upm.dit.isst.webLab.dao.DoctorDAO;
 import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
 import es.upm.dit.isst.webLab.dao.PatientDAO;
 import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
+import es.upm.dit.isst.webLab.dao.SpecialtyDAO;
+import es.upm.dit.isst.webLab.dao.SpecialtyDAOImplementation;
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
 import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
 
@@ -27,6 +29,8 @@ public class AdminServlet extends HttpServlet {
 		req.getSession().setAttribute( "appointment_list", adao.readAll() );
 		PatientDAO pdao = PatientDAOImplementation.getInstance();
 		req.getSession().setAttribute( "patient_list", pdao.readAll() );
+		SpecialtyDAO sdao = SpecialtyDAOImplementation.getInstance();
+		req.getSession().setAttribute( "specialty_list", sdao.readAll() );
 		
 		getServletContext().getRequestDispatcher( "/AdminView.jsp" ).forward( req, resp );
 	}

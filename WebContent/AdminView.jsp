@@ -109,6 +109,40 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<h3>Registrar nueva especialidad</h3>
+		<form action="CreateSpecialtyServlet" method="post">
+			<p>
+				Identificador: <input type="text" name="id" />
+			</p>
+			<p>
+				Nombre: <input type="text" name="name" />
+			</p>
+			<p>
+				Descripción: <input type="text" name="description" />
+			</p>
+			
+			<p>
+				<button type="submit">Registrar especiald</button>
+			</p>
+		</form>
+		<h3>Listado de especialidades</h3>
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Descripción</th>
+				<th>Doctores</th>
+				
+			</tr>
+			<c:forEach items="${specialty_list}" var="speci">
+				<tr>
+					<td>${speci.id }</td>
+					<td>${speci.name }</td>
+					<td>${speci.description }</td>
+					<td>${fn:length(speci.doctors) }</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</shiro:hasRole>
 </body>
 </html>

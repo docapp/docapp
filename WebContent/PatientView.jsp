@@ -16,6 +16,25 @@
 </shiro:user>
 <br>
 
+<h3>Listado de especialidades</h3>
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Descripción</th>
+				<th>Doctores</th>
+				
+			</tr>
+			<c:forEach items="${specialties}" var="speci">
+				<tr>
+					<td>${speci.id }</td>
+					<td>${speci.name }</td>
+					<td>${speci.description }</td>
+					<td>${fn:length(speci.doctors) }</td>
+				</tr>
+			</c:forEach>
+		</table>
+
 <h2>Tus citas</h2>
 
 <table border="1">

@@ -7,21 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Collection;
+
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
 import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
 import es.upm.dit.isst.webLab.dao.PatientDAO;
 import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
+import es.upm.dit.isst.webLab.dao.SpecialtyDAO;
+import es.upm.dit.isst.webLab.dao.SpecialtyDAOImplementation;
 import es.upm.dit.isst.webLab.model.Appointment;
 import es.upm.dit.isst.webLab.model.Patient;
+import es.upm.dit.isst.webLab.model.Specialty;
+
 
 /**
  * Servlet implementation class AppointmentServlet
  */
-@WebServlet("/AppointmentServlet")
-public class AppointmentServlet extends HttpServlet {
+@WebServlet("/PatientServlet")
+public class PatientServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public AppointmentServlet() {
+    public PatientServlet() {
         super();
 
     }
@@ -31,9 +37,13 @@ public class AppointmentServlet extends HttpServlet {
 		PatientDAO pdao = PatientDAOImplementation.getInstance();
 		Patient p = pdao.read(pat_dni);
 		
-		req.getSession().setAttribute( "appointments", p.getAppointments() );
+		SpecialtyDAO sdao = SpecialtyDAOImplementation.getInstance();
+		Collection<Specialty> specs = sdao.readAll();
 		
-		getServletContext().getRequestDispatcher( "/AppointmentView.jsp" ).forward( req, resp );
+		req.getSession().setAttribute( "appointments", p.getAppointments() );
+		req.getSession().setAttribute( "specialties", specs);
+		
+		getServletContext().getRequestDispatcher( "/PatientView.jsp" ).forward( req, resp );
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

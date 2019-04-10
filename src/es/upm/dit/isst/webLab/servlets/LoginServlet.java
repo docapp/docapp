@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 				else if ( currentUser.hasRole( "doctor" ) )
 					resp.sendRedirect( req.getContextPath() + "/DoctorServlet?dni=" + currentUser.getPrincipal() );
 				else if ( currentUser.hasRole( "patient" ) )
-					resp.sendRedirect( req.getContextPath() + "/AppointmentServlet?pat_dni=" + currentUser.getPrincipal() );
+					resp.sendRedirect( req.getContextPath() + "/PatientServlet?pat_dni=" + currentUser.getPrincipal() );
 				else 
 					resp.sendRedirect( req.getContextPath() + "/LoginServlet");
 			} catch ( Exception e ) {
