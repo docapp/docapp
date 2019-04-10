@@ -10,5 +10,5 @@ public interface AppointmentDAO {
 	public void update (Appointment app);
 	public void delete (Appointment app);
 	public Collection<Appointment> readAll();
-	
+	public Collection<Appointment> filterDateDoctor(String doc_dni, java.sql.Date date);
 }

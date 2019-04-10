@@ -28,7 +28,7 @@
 			<c:forEach items="${specialties}" var="speci">
 				<tr>
 					<td>${speci.id }</td>
-					<td>${speci.name }</td>
+					<td><a href="SpecDocsServlet?spec=${speci.id}">${speci.name }</a></td>
 					<td>${speci.description }</td>
 					<td>${fn:length(speci.doctors) }</td>
 				</tr>
