@@ -29,10 +29,10 @@ public class PatientDAOImplementation implements PatientDAO{
 	}
 
 	@Override
-	public Patient read(Integer id) {
+	public Patient read(String dni) {
 		Session session = SessionFactoryService.get().openSession();
 		session.beginTransaction();
-		Patient patient = session.load(Patient.class, id);
+		Patient patient = session.load(Patient.class, dni);
 		session.getTransaction().commit();
 		session.close();
 		return patient;

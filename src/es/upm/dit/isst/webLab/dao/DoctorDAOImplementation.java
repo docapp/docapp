@@ -28,10 +28,10 @@ public class DoctorDAOImplementation implements DoctorDAO{
 	}
 
 	@Override
-	public Doctor read(Integer id) {
+	public Doctor read(String dni) {
 		Session session = SessionFactoryService.get().openSession();
 		session.beginTransaction();
-		Doctor doctor = session.load(Doctor.class, id);
+		Doctor doctor = session.load(Doctor.class, dni);
 		session.getTransaction().commit();
 		session.close();
 		return doctor;

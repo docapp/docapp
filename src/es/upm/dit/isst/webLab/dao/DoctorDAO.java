@@ -6,7 +6,7 @@ import es.upm.dit.isst.webLab.model.Doctor;
 
 public interface DoctorDAO {
 	public void create(Doctor doctor);
-	public Doctor read (Integer id);
+	public Doctor read (String dni);
 	public void update (Doctor doctor);
 	public void delete (Doctor doctor);
 	public Collection<Doctor> readAll();
