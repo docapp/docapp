@@ -47,7 +47,37 @@
 
 	<tr>
 		<td>${appi.date}</td>
-		<td>${appi.start_time}</td>
+		<c:if test = "${appi.start_time == 0}">
+         <td>9:00-9:30</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 1}">
+         <td>9:30-10:00</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 2}">
+         <td>10:00-10:30</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 3}">
+         <td>10:30-11:00</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 4}">
+         <td>11:00-11:30</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 5}">
+         <td>11:30-12:00</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 6}">
+         <td>12:00-12:30</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 7}">
+         <td>12:30-13:00</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 8}">
+         <td>13:00-13:30</td>
+        </c:if>
+        <c:if test = "${appi.start_time == 8}">
+         <td>13:30-14:00</td>
+        </c:if>
+        
 	</tr>
 		</c:forEach>
 	

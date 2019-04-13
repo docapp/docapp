@@ -18,32 +18,6 @@
 				placeholder="Password" />
 			<button type="submit">Login</button>
 		</form>
-		<h3>Pedir cita</h3>
-		<form action="CreateAppointmentServlet" method="post">
-			<p>
-				DNI: <input type="text" name="pat_dni" />
-			</p>
-			<p>
-				Fecha: <input type="date" name="date" />
-			</p>
-			<p>
-				Hora de inicio: <input type="text" name="start_time" />
-			</p>
-			
-			<p>
-			Doctor: <select name="doc_dni">
-  				<option value="" disabled selected>Elija un doctor</option>
-				<c:forEach items="${doctor_list}" var="doc">
-    				<option value="${doc.dni}">
-      					${doc.name}-${doc.surname}-${doc.specialty}
-    				</option>
-  				</c:forEach>
-				</select>
-			</p>
-			<p>
-				<button type="submit">Pedir cita</button>
-			</p>
-		</form>
 	</shiro:guest>
 
 	<shiro:user>
