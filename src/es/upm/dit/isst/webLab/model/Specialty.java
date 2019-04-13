@@ -1,5 +1,6 @@
 package es.upm.dit.isst.webLab.model;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -7,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.json.JSONObject;
 
 @Entity
 public class Specialty implements Serializable {
@@ -57,7 +60,19 @@ public class Specialty implements Serializable {
 	public void setDoctors(Collection<Doctor> doctors) {
 		this.doctors = doctors;
 	}
+	
+	public String toJSON() {
+  	  //create Json Object
+  	  JSONObject json = new JSONObject();
 
+	    // put some value pairs into the JSON object .
+	    json.put("id", this.id);
+	    json.put("name", this.name);
+	    json.put("description", this.description);
+	
+		return json.toString();
+	}
+	
 
 	
 }
