@@ -19,7 +19,7 @@ public class Appointment implements Serializable {
 	private Integer id;
 	
 	private Date date;
-	private Time start_time;
+	private Integer start_time;
 	
 	
 	@ManyToOne
@@ -49,11 +49,11 @@ public class Appointment implements Serializable {
 		this.date = date;
 	}
 
-	public Time getStart_time() {
+	public Integer getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Time start_time) {
+	public void setStart_time(Integer start_time) {
 		this.start_time = start_time;
 	}
 

@@ -27,7 +27,7 @@
 				Fecha: <input type="date" name="date" />
 			</p>
 			<p>
-				Hora de inicio: <input type="time" step="1" name="start_time" />
+				Hora de inicio: <input type="text" name="start_time" />
 			</p>
 			
 			<p>

@@ -26,14 +26,14 @@
 					<td>
 						<form action="DateServlet" method="post">
 							<input type="hidden" name="doc_dni" value="${doc.dni}" />
+							<input type="hidden" name="pat_dni" value="${pat_dni}" />
+							
 							<button type="submit">Ver disponibilidad</button>
 						</form>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
-		
-		
 
 </body>
 </html>

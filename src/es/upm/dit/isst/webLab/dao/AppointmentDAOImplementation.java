@@ -70,7 +70,7 @@ public class AppointmentDAOImplementation implements AppointmentDAO {
 	public Collection<Appointment> filterDateDoctor(String doc_dni, java.sql.Date date) {
 		Session session = SessionFactoryService.get().openSession();
 		session.beginTransaction();
-		Collection<Appointment> apps = session.createQuery("from Appointment where app_doc='" + doc_dni + "' and date='" + date + "'").list();
+		Collection<Appointment> apps = session.createQuery("from Appointment where app_doctor_dni='" + doc_dni + "' and date='" + date + "'").list();
 		session.getTransaction().commit();
 		session.close();
 		return apps;

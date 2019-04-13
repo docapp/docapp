@@ -22,8 +22,8 @@ public class CreateDoctorServlet extends HttpServlet {
 		String name = req.getParameter( "name" );
 		String surname = req.getParameter( "surname" );
 		String specialty = req.getParameter( "specialty" );
-
 		String password = req.getParameter( "password" );
+
 		
 		Doctor doctor = new Doctor();
 		doctor.setDni(dni);

@@ -36,6 +36,7 @@ public class SpecDocsServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String spec_id = req.getParameter("spec");
+		String pat_dni = req.getParameter("pat_dni");
 		
 		SpecialtyDAO sdao = SpecialtyDAOImplementation.getInstance();
 		Specialty spec = sdao.read(spec_id);
@@ -43,6 +44,7 @@ public class SpecDocsServlet extends HttpServlet {
 		
 		req.getSession().setAttribute( "doctor_list", doctors);
 		req.getSession().setAttribute( "spec", spec.getName());
+		req.getSession().setAttribute( "pat_dni", pat_dni);
 
 		getServletContext().getRequestDispatcher( "/SpecDocsView.jsp" ).forward( req, resp );
 	}

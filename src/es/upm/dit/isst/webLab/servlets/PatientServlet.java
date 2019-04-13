@@ -42,6 +42,8 @@ public class PatientServlet extends HttpServlet {
 		
 		req.getSession().setAttribute( "appointments", p.getAppointments() );
 		req.getSession().setAttribute( "specialties", specs);
+		req.getSession().setAttribute( "pat_dni", pat_dni);
+
 		
 		getServletContext().getRequestDispatcher( "/PatientView.jsp" ).forward( req, resp );
 	}

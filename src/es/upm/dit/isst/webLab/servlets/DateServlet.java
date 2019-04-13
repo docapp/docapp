@@ -33,11 +33,13 @@ public class DateServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String doc_dni = req.getParameter("doc_dni");
-		
+		String pat_dni = req.getParameter("pat_dni");
+
 		DoctorDAO ddao = DoctorDAOImplementation.getInstance();
 		Doctor doctor = ddao.read(doc_dni);
-		
+	
 		req.getSession().setAttribute( "doc", doctor);
+		req.getSession().setAttribute( "pat_dni", pat_dni);
 
 		getServletContext().getRequestDispatcher( "/DateView.jsp" ).forward( req, resp );
 	}

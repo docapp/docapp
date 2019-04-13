@@ -3,6 +3,7 @@ package es.upm.dit.isst.webLab.servlets;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.upm.dit.isst.webLab.dao.AppointmentDAO;
+import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
 import es.upm.dit.isst.webLab.dao.SpecialtyDAO;
 import es.upm.dit.isst.webLab.dao.SpecialtyDAOImplementation;
+import es.upm.dit.isst.webLab.model.Appointment;
 import es.upm.dit.isst.webLab.model.Doctor;
 import es.upm.dit.isst.webLab.model.Specialty;
+import es.upm.dit.isst.webLab.model.TimeSlot;
 
 /**
  * Servlet implementation class DispDocServlet
@@ -35,18 +40,23 @@ public class DispDocServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String doc_dni = req.getParameter("doc_dni");
+		String pat_dni = req.getParameter("pat_dni");
+
 		java.sql.Date date = Date.valueOf(req.getParameter( "date" ));
 
-
+		TimeSlot timeSlot = new TimeSlot();
+		HashMap <Integer, String> slots = timeSlot.getDaySlots();
 		
-		//DoctorDAO ddao = DoctorDAOImplementation.getInstance();
-		//Doctor doctor = ddao.read(doc_dni);
-		//Collection<Doctor> doctors = spec.getDoctors();
+		AppointmentDAO adao = AppointmentDAOImplementation.getInstance();
+		Collection<Appointment> chosen = adao.filterDateDoctor(doc_dni, date);
+		HashMap <Integer, String> available = timeSlot.getAvailableTimeSlots(chosen);
 		
-		//req.getSession().setAttribute( "doctor_list", doctors);
-		//req.getSession().setAttribute( "spec", spec.getName());
-
-		getServletContext().getRequestDispatcher( "/SpecDocsView.jsp" ).forward( req, resp );
+		req.getSession().setAttribute( "available", available.values());
+		req.getSession().setAttribute( "doc_dni", doc_dni);
+		req.getSession().setAttribute( "pat_dni", pat_dni);
+		req.getSession().setAttribute( "date", date);
+	
+		getServletContext().getRequestDispatcher( "/TimeView.jsp" ).forward( req, resp );
 	}
 
 	/**

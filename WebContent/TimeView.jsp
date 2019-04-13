@@ -7,24 +7,32 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Doctor View</title>
+<title>Horas disponibles</title>
 </head>
 <body>
 
-<h2>Elige un día para ver la disponibilidad ${pat_dni}</h2>
-		<form action="DispDocServlet" method="post">
-			<p>
-				Fecha: <input type="date" name="date" />
+<h2>Horad disponibles ${pat_dni} </h2>
+
+	<form action="CreateAppointmentServlet" method="post">
+		
+			Start_time: <select name="start_time">
+  				<option value="" disabled selected>Elija una hora</option>
+				
+  				<c:forEach items="${available}" var="time" varStatus="loop">
+    				<option value="${time}">
+      					${time}
+    				</option>
+  				</c:forEach>
+				</select>
 			</p>
+			
 			<input type="hidden" name="doc_dni" value="${doc.dni}" />
 			<input type="hidden" name="pat_dni" value="${pat_dni}" />
-			
-			<p>
-				<button type="submit">Ver disponibilidad</button>
-			</p>
+			<input type="hidden" name="date" value="${date}" />
+		
+			<p><button type="submit">Pedir cita</button></p>
 		</form>
-		
-		
+	
 
 </body>
 </html>
