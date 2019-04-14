@@ -33,14 +33,6 @@ public class CreateAppointmentServlet extends HttpServlet{
 
 		TimeSlot timeSlot = new TimeSlot();
 		Integer time = timeSlot.getTimeSlotKey(t);
-		
-		System.out.println(doc_dni);
-		System.out.println(pat_dni);
-		System.out.println(date);
-		System.out.println(time);
-
-
-
 
 		DoctorDAO ddao = DoctorDAOImplementation.getInstance();
 		Doctor doctor = ddao.read(doc_dni);

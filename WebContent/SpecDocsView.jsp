@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Doctor View</title>
+<title>Specialties View</title>
 </head>
 <body>
 

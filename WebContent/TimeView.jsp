@@ -7,31 +7,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Horas disponibles</title>
+<title>Available time solts</title>
 </head>
 <body>
 
-<h2>Horad disponibles ${pat_dni} </h2>
+<h2>Horas disponibles ${pat_dni} </h2>
 
 	<form action="CreateAppointmentServlet" method="post">
 		
-			Start_time: <select name="start_time">
-  				<option value="" disabled selected>Elija una hora</option>
-				
-  				<c:forEach items="${available}" var="time" varStatus="loop">
-    				<option value="${time}">
-      					${time}
-    				</option>
-  				</c:forEach>
-				</select>
-			</p>
+		Start_time: <select name="start_time">
+ 				<option value="" disabled selected>Elija una hora</option>
 			
-			<input type="hidden" name="doc_dni" value="${doc.dni}" />
-			<input type="hidden" name="pat_dni" value="${pat_dni}" />
-			<input type="hidden" name="date" value="${date}" />
+ 				<c:forEach items="${available}" var="time" varStatus="loop">
+   				<option value="${time}">
+     					${time}
+   				</option>
+ 				</c:forEach>
+			</select>
 		
-			<p><button type="submit">Pedir cita</button></p>
-		</form>
+		<input type="hidden" name="doc_dni" value="${doc.dni}" />
+		<input type="hidden" name="pat_dni" value="${pat_dni}" />
+		<input type="hidden" name="date" value="${date}" />
+	
+		<p><button type="submit">Pedir cita</button></p>
+	</form>
 	
 
 </body>

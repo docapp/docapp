@@ -19,6 +19,58 @@
 	No tienes permiso para ver el contenido de esta página
 </shiro:lacksRole>
 	<shiro:hasRole name="admin">
+		<c:if test="${is_pas == true}">
+			<h3>Listado de especialidades</h3>
+				<table border="1">
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Descripción</th>
+						<th>Doctores</th>
+						
+					</tr>
+					<c:forEach items="${specialty_list}" var="speci">
+						<tr>
+							<td>${speci.id }</td>
+							<td><a href="SpecDocsServlet?spec=${speci.id}&pat_dni=${pat_dni}">${speci.name }</a></td>
+							<td>${speci.description }</td>
+							<td>${fn:length(speci.doctors) }</td>
+						</tr>
+					</c:forEach>
+				</table>		
+		</c:if>  
+		<c:if test="${is_pas == false}">
+		<h3>Crear perfil de Personal Administrativo</h3>
+		<form action="CreateAdminServlet" method="post">
+			<p>
+				DNI: <input type="text" name="dni" />
+			</p>
+			<p>
+				Nombre: <input type="text" name="name" />
+			</p>
+			<p>
+				Apellidos: <input type="text" name="surname" />
+			</p>
+			<p>
+				Password: <input type="password" name="password" />
+			</p>
+			<p>
+				<button type="submit">Crear admin</button>
+			</p>
+		</form>
+		<h3>Listado de Personal Administrativo</h3>
+		<table border="1">
+			<tr>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+			</tr>
+			<c:forEach items="${admin_list}" var="admini">
+				<tr>
+					<td>${admini.name }</td>
+					<td>${admini.surname }</td>
+				</tr>
+			</c:forEach>
+		</table>
 		<h3>Crear doctor nuevo</h3>
 		<form action="CreateDoctorServlet" method="post">
 			<p>
@@ -142,7 +194,10 @@
 					<td>${fn:length(speci.doctors) }</td>
 				</tr>
 			</c:forEach>
-		</table>
+		</table>		
+		</c:if>  
+		
+		
 	</shiro:hasRole>
 </body>
 </html>
