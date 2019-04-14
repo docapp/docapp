@@ -18,6 +18,7 @@
 		<mapping class="es.upm.dit.isst.webLab.model.Appointment" />
 		<mapping class="es.upm.dit.isst.webLab.model.Patient" />
 		<mapping class="es.upm.dit.isst.webLab.model.Specialty" />
+		<mapping class="es.upm.dit.isst.webLab.model.Admin" />
 		
 	</session-factory>
 </hibernate-configuration>
