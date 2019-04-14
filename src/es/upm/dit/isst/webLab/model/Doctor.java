@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.json.JSONObject;
+
 @Entity
 public class Doctor implements Serializable {
 
@@ -79,6 +81,18 @@ public class Doctor implements Serializable {
 	public void setAppointments(Collection<Appointment> appointments) {
 		this.appointments = appointments;
 	}	
+	
+	public JSONObject toJSON() {
+	  	  //create Json Object
+	  	  JSONObject json = new JSONObject();
+
+		    // put some value pairs into the JSON object .
+		    json.put("dni", this.dni);
+		    json.put("name", this.name);
+		    json.put("surname", this.surname);
+		    
+			return json;
+		}
 }
 
 

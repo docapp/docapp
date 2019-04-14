@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 @Entity
 public class Specialty implements Serializable {
@@ -61,7 +62,7 @@ public class Specialty implements Serializable {
 		this.doctors = doctors;
 	}
 	
-	public String toJSON() {
+	public JSONObject toJSON() {
   	  //create Json Object
   	  JSONObject json = new JSONObject();
 
@@ -69,8 +70,20 @@ public class Specialty implements Serializable {
 	    json.put("id", this.id);
 	    json.put("name", this.name);
 	    json.put("description", this.description);
+	    
+	    Collection<Doctor> docs = this.doctors;
+    	    	
+	    JSONArray array = new JSONArray();
+    	//String outTest = "[";
+
+    	for(Doctor d : docs) {
+    		array.put(d.toJSON());
+    	}
+    	
+    	
+	    json.put("doctors", array);
 	
-		return json.toString();
+		return json;
 	}
 	
 

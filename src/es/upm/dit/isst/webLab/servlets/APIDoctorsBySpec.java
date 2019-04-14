@@ -23,14 +23,14 @@ import es.upm.dit.isst.webLab.model.Specialty;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet("/api/specialties")
+public class APIDoctorsBySpec extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestServlet() {
+    public APIDoctorsBySpec() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,7 +53,6 @@ public class TestServlet extends HttpServlet {
     		array.put(s.toJSON());
     	}
     	
-    
     	out.print(array.toString());
 	}
 
