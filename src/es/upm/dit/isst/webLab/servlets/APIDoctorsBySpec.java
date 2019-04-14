@@ -41,6 +41,7 @@ public class APIDoctorsBySpec extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	resp.setContentType("application/json");
     	resp.setCharacterEncoding("utf-8");
+    	setAccessControlHeaders(resp);
     
     	SpecialtyDAO sdao = SpecialtyDAOImplementation.getInstance();
     	Collection<Specialty> specs = sdao.readAll();
@@ -63,5 +64,17 @@ public class APIDoctorsBySpec extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
+	@Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        resp.setHeader("Access-Control-Allow-Methods", "GET");
+    }
 
 }
