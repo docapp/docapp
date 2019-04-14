@@ -45,6 +45,7 @@ public class APIDispByDoctorAndDate extends HttpServlet {
 		// TODO Auto-generated method stub
 		String doc_dni = req.getParameter("doc_dni");
 		java.sql.Date date = Date.valueOf(req.getParameter( "date" ));
+		setAccessControlHeaders(resp);
 
 		TimeSlot timeSlot = new TimeSlot();
 		HashMap <Integer, String> slots = timeSlot.getDaySlots();
@@ -76,5 +77,17 @@ public class APIDispByDoctorAndDate extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, resp);
 	}
+	
+	@Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        resp.setHeader("Access-Control-Allow-Methods", "GET");
+    }
 
 }
