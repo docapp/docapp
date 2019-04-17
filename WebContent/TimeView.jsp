@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h2>Horas disponibles ${pat_dni} </h2>
+<h2>Horas disponibles </h2>
 
 	<form action="CreateAppointmentServlet" method="post">
 		

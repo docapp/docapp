@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h2>Elige un día para ver la disponibilidad ${pat_dni}</h2>
+<h2>Elige un día para ver la disponibilidad </h2>
 		<form action="DispDocServlet" method="post">
 			<p>
 				Fecha: <input type="date" name="date" />
