@@ -42,6 +42,7 @@
 		<tr>
 			<th>Día</th>
 			<th>Hora</th>
+			<th>Doctor</th>
 			<th>Presencia</th>
 			
 		</tr>
@@ -79,6 +80,7 @@
 		        <c:if test = "${appi.start_time == 8}">
 		         <td>13:30-14:00</td>
 		        </c:if>
+		        <td>${appi.doctor.surname}, ${appi.doctor.name}</td>
 		        <td><c:if test="${appi.presence == false}">
 					<form action="Form2PresenceServlet" method="post">
 						<input type="hidden" name="id" value="${appi.id}" />

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
@@ -16,6 +17,9 @@ import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
 import es.upm.dit.isst.webLab.dao.SpecialtyDAO;
 import es.upm.dit.isst.webLab.dao.SpecialtyDAOImplementation;
 import es.upm.dit.isst.webLab.model.Appointment;
+import es.upm.dit.isst.webLab.model.AppointmentAndDoctor;
+import es.upm.dit.isst.webLab.model.AppointmentAndPatient;
+import es.upm.dit.isst.webLab.model.Doctor;
 import es.upm.dit.isst.webLab.model.Patient;
 import es.upm.dit.isst.webLab.model.Specialty;
 
@@ -40,7 +44,27 @@ public class PatientServlet extends HttpServlet {
 		SpecialtyDAO sdao = SpecialtyDAOImplementation.getInstance();
 		Collection<Specialty> specs = sdao.readAll();
 		
-		req.getSession().setAttribute( "appointments", p.getAppointments() );
+		
+		Collection<Appointment> appointments = p.getAppointments();
+		Collection<AppointmentAndDoctor> anotherList = new ArrayList<AppointmentAndDoctor>();
+		
+		for (Appointment app : appointments ) {
+			
+			AppointmentAndDoctor obj = new AppointmentAndDoctor();
+			
+			Doctor doc = app.getApp_doctor();
+			
+			obj.setApp_doctor(app.getApp_doctor());
+			obj.setApp_patient(app.getApp_patient());
+			obj.setDate(app.getDate());
+			obj.setStart_time(app.getStart_time());
+			obj.setPresence(app.getPresence());
+			obj.setDoctor(doc);
+			
+			anotherList.add(obj);
+		}
+		
+		req.getSession().setAttribute( "appointments", anotherList);
 		req.getSession().setAttribute( "specialties", specs);
 		req.getSession().setAttribute( "pat_dni", pat_dni);
 
