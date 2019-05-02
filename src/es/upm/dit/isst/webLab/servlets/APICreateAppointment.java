@@ -16,8 +16,13 @@ import org.json.JSONObject;
 
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
 import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
+import es.upm.dit.isst.webLab.dao.DoctorDAO;
+import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
+import es.upm.dit.isst.webLab.dao.PatientDAO;
+import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
 import es.upm.dit.isst.webLab.model.Appointment;
-import es.upm.dit.isst.webLab.model.TimeSlot;
+import es.upm.dit.isst.webLab.model.Doctor;
+import es.upm.dit.isst.webLab.model.Patient;
 
 /**
  * Servlet implementation class APICreateAppointment
@@ -49,32 +54,33 @@ public class APICreateAppointment extends HttpServlet {
 		
 		String doc_dni = req.getParameter("doc_dni");
 		String pat_dni = req.getParameter("pat_dni");
-		String start_time = req.getParameter("start_time");
+		Integer start_time = Integer.valueOf(req.getParameter("start_time"));
 		java.sql.Date date = Date.valueOf(req.getParameter( "date" ));
+		
+		DoctorDAO ddao = DoctorDAOImplementation.getInstance();
+		Doctor doctor = ddao.read(doc_dni);
+		
+		PatientDAO pdao = PatientDAOImplementation.getInstance();
+		Patient patient = pdao.read(pat_dni);
 		
 		setAccessControlHeaders(resp);
 
-		TimeSlot timeSlot = new TimeSlot();
-		HashMap <Integer, String> slots = timeSlot.getDaySlots();
+		Appointment app = new Appointment();
+		app.setApp_doctor(doctor);
+		app.setApp_patient(patient);
+		app.setDate(date);
+		app.setStart_time(start_time);
+		app.setPresence(false);
 		
 		AppointmentDAO adao = AppointmentDAOImplementation.getInstance();
-		Collection<Appointment> chosen = adao.filterDateDoctor(doc_dni, date);
-		HashMap <Integer, String> available = timeSlot.getAvailableTimeSlots(chosen);
-		
-		JSONObject av = new JSONObject();
-				
-		for (HashMap.Entry<Integer, String> entry : available.entrySet()) {
-			av.put(String.valueOf(entry.getKey()), entry.getValue());
-		}
-		
+		adao.create( app );
 		
     	PrintWriter out = resp.getWriter();
 		
 		resp.setContentType("application/json");
     	resp.setCharacterEncoding("utf-8");
  
-    	
-    	out.print(av.toString());
+    	out.print("200OK");
 	}
 	
 	@Override
