@@ -12,28 +12,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
 import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
-import es.upm.dit.isst.webLab.dao.SpecialtyDAO;
-import es.upm.dit.isst.webLab.dao.SpecialtyDAOImplementation;
 import es.upm.dit.isst.webLab.model.Appointment;
-import es.upm.dit.isst.webLab.model.Specialty;
 import es.upm.dit.isst.webLab.model.TimeSlot;
 
 /**
- * Servlet implementation class DispByDoctorAndDate
+ * Servlet implementation class APICreateAppointment
  */
-@WebServlet("/api/availability")
-public class APIDispByDoctorAndDate extends HttpServlet {
+@WebServlet("/APICreateAppointment")
+public class APICreateAppointment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public APIDispByDoctorAndDate() {
+    public APICreateAppointment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,10 +37,21 @@ public class APIDispByDoctorAndDate extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String doc_dni = req.getParameter("doc_dni");
+		String pat_dni = req.getParameter("pat_dni");
+		String start_time = req.getParameter("start_time");
 		java.sql.Date date = Date.valueOf(req.getParameter( "date" ));
+		
 		setAccessControlHeaders(resp);
 
 		TimeSlot timeSlot = new TimeSlot();
@@ -69,14 +76,6 @@ public class APIDispByDoctorAndDate extends HttpServlet {
     	
     	out.print(av.toString());
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, resp);
-	}
 	
 	@Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
@@ -87,7 +86,7 @@ public class APIDispByDoctorAndDate extends HttpServlet {
 
     private void setAccessControlHeaders(HttpServletResponse resp) {
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "GET");
+        resp.setHeader("Access-Control-Allow-Methods", "POST");
     }
 
 }

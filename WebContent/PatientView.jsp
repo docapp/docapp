@@ -31,6 +31,7 @@
 					<td><a href="SpecDocsServlet?spec=${speci.id}&pat_dni=${pat_dni}">${speci.name }</a></td>
 					<td>${speci.description }</td>
 					<td>${fn:length(speci.doctors) }</td>
+					
 				</tr>
 			</c:forEach>
 		</table>
@@ -41,6 +42,7 @@
 		<tr>
 			<th>Día</th>
 			<th>Hora</th>
+			<th>Presencia</th>
 			
 		</tr>
 		
@@ -77,7 +79,16 @@
 		        <c:if test = "${appi.start_time == 8}">
 		         <td>13:30-14:00</td>
 		        </c:if>
-		        
+		        <td><c:if test="${appi.presence == false}">
+					<form action="Form2PresenceServlet" method="post">
+						<input type="hidden" name="id" value="${appi.id}" />
+						<button type="submit">Confirmar presencia</button>
+					</form>
+				</c:if>
+				<c:if test="${appi.presence == true}">
+					PRESENCIA CONFIRMADA
+				</c:if>
+				</td>
 			</tr>
 		</c:forEach>	
 	</table>

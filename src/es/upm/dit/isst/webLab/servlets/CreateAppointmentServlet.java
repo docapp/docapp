@@ -30,6 +30,7 @@ public class CreateAppointmentServlet extends HttpServlet{
 		String pat_dni = req.getParameter( "pat_dni" );
 		java.sql.Date date = Date.valueOf(req.getParameter( "date" ));
 		String t = req.getParameter("start_time");
+		Boolean presence = false;
 
 		TimeSlot timeSlot = new TimeSlot();
 		Integer time = timeSlot.getTimeSlotKey(t);
@@ -45,6 +46,7 @@ public class CreateAppointmentServlet extends HttpServlet{
 		app.setApp_patient(patient);
 		app.setDate(date);
 		app.setStart_time(time);
+		app.setPresence(presence);
 		
 		AppointmentDAO adao = AppointmentDAOImplementation.getInstance();
 		adao.create( app );

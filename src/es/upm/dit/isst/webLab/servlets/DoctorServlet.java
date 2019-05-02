@@ -1,6 +1,8 @@
 package es.upm.dit.isst.webLab.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import es.upm.dit.isst.webLab.dao.DoctorDAO;
 import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
 import es.upm.dit.isst.webLab.model.Doctor;
+import es.upm.dit.isst.webLab.model.Patient;
+import es.upm.dit.isst.webLab.model.Appointment;
+import es.upm.dit.isst.webLab.model.AppointmentAndPatient;
+
 
 /**
  * Servlet implementation class ProfessorServlet
@@ -29,7 +35,31 @@ public class DoctorServlet extends HttpServlet {
 		DoctorDAO pdao = DoctorDAOImplementation.getInstance();
 		Doctor p = pdao.read(dni);
 		
-		req.getSession().setAttribute( "appointments", p.getAppointments());
+		Collection<Appointment> appointments = p.getAppointments();
+		
+		
+		Collection<AppointmentAndPatient> anotherList = new ArrayList<AppointmentAndPatient>();
+		
+		for (Appointment app : appointments ) {
+			
+			AppointmentAndPatient obj = new AppointmentAndPatient();
+			
+			Patient pat = app.getApp_patient();
+			
+			obj.setApp_doctor(app.getApp_doctor());
+			obj.setApp_patient(app.getApp_patient());
+			obj.setDate(app.getDate());
+			obj.setStart_time(app.getStart_time());
+			obj.setPresence(app.getPresence());
+			obj.setPatient(pat);
+			
+			anotherList.add(obj);
+		}
+		
+		req.getSession().setAttribute( "anotherList", anotherList);
+
+		
+		
 		getServletContext().getRequestDispatcher( "/DoctorView.jsp" ).forward( req, resp );
 	}
 

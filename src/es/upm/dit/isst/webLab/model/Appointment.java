@@ -21,7 +21,9 @@ public class Appointment implements Serializable {
 	private Date date;
 	private Integer start_time;
 	
+	private Boolean presence;
 	
+
 	@ManyToOne
 	private Doctor app_doctor;
 	
@@ -73,6 +75,12 @@ public class Appointment implements Serializable {
 		this.app_patient = app_patient;
 	}
 
-	
+	public Boolean getPresence() {
+		return presence;
+	}
+
+	public void setPresence(Boolean presence) {
+		this.presence = presence;
+	}
 }
 

@@ -23,54 +23,27 @@
 
 <table border="1">
 	<tr>
+		<th>Fecha</th>
 		<th>Hora</th>
-		<th>DNI</th>
+		<th>Presencia</th>
+		<th>Paciente</th>
+		
 		
 	</tr>
-		<c:forEach items="${appointments}" var="appi">
+		<c:forEach items="${anotherList}" var="obj">
 
 	<tr>
-		<td>${appi.date}</td>
-		<td>${appi.start_time}</td>
+		<td>${obj.date}</td>
+		<td>${obj.start_time}</td>
+		<td>${obj.presence}</td>
+		<td>${obj.patient.surname} ${obj.patient.name}</td>
+	
+			
 	</tr>
 		</c:forEach>
 	
 </table>
 <br>
 
-<%-- <table border="1">
-	<tr>
-		<th>Título</th>
-		<th>Email alumno</th>
-		<th>Nombre del alumno</th>
-		<th>Email tutor</th>
-		<th>Nombre del tutor</th>
-		<th>Estado del TFG</th>
-		<th>Memoria</th>
-		<th>Acción requerida</th>
-	</tr>
-	<c:forEach items="${tfgs}" var="tfgi">
-		<tr>
-			<td>${tfgi.title }</td>
-			<td>${tfgi.email }</td>
-			<td>${tfgi.name }</td>
-			<td>${tfgi.advisor.email }</td>
-			<td>${tfgi.advisor.name }</td>
-			<td>${tfgi.status }</td>
-			<td><c:if test="${tfgi.status > 3}">
-				<form action="ServeFileServlet">
-					<input type="hidden" name="email" value="${tfgi.email}" />
-					<button type="submit">Descargar</button>
-				</form>
-			</c:if></td>
-			<td><c:if test="${tfgi.status == 1}">
-				<form action="Form2ProfessorServlet" method="post">
-					<input type="hidden" name="email" value="${tfgi.email}" />
-					<button type="submit">Aceptar tfg</button>
-				</form>
-			</c:if></td>
-		</tr>
-	</c:forEach>
-</table> --%>
 </body>
 </html>
