@@ -37,7 +37,6 @@ public class DoctorServlet extends HttpServlet {
 		
 		Collection<Appointment> appointments = p.getAppointments();
 		
-		
 		Collection<AppointmentAndPatient> anotherList = new ArrayList<AppointmentAndPatient>();
 		
 		for (Appointment app : appointments ) {
@@ -45,7 +44,7 @@ public class DoctorServlet extends HttpServlet {
 			AppointmentAndPatient obj = new AppointmentAndPatient();
 			
 			Patient pat = app.getApp_patient();
-			
+			obj.setId(app.getId());
 			obj.setApp_doctor(app.getApp_doctor());
 			obj.setApp_patient(app.getApp_patient());
 			obj.setDate(app.getDate());

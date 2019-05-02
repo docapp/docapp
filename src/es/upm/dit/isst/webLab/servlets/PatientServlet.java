@@ -54,6 +54,7 @@ public class PatientServlet extends HttpServlet {
 			
 			Doctor doc = app.getApp_doctor();
 			
+			obj.setId(app.getId());
 			obj.setApp_doctor(app.getApp_doctor());
 			obj.setApp_patient(app.getApp_patient());
 			obj.setDate(app.getDate());
