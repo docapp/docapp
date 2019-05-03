@@ -28,7 +28,7 @@ import es.upm.dit.isst.webLab.model.Specialty;
 /**
  * Servlet implementation class APIDoctorList
  */
-@WebServlet("/api/docappos")
+@WebServlet("/api/doc-appointment")
 public class APIDoctorList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
