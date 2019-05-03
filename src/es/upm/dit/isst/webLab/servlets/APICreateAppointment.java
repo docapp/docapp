@@ -27,7 +27,7 @@ import es.upm.dit.isst.webLab.model.Patient;
 /**
  * Servlet implementation class APICreateAppointment
  */
-@WebServlet("/APICreateAppointment")
+@WebServlet("/api/new-appointment")
 public class APICreateAppointment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
