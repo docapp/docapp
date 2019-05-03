@@ -1,6 +1,8 @@
 package es.upm.dit.isst.webLab.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,22 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.isst.webLab.dao.AppointmentDAO;
 import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
-
 import es.upm.dit.isst.webLab.model.Appointment;
 import es.upm.dit.isst.webLab.model.Patient;
 
-
 /**
- * Servlet implementation class Form2PresenceServlet
+ * Servlet implementation class APIConfirmPresence
  */
-@WebServlet("/Form2PresenceServlet")
-public class Form2PresenceServlet extends HttpServlet {
+@WebServlet("/api/presence")
+public class APIConfirmPresence extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Form2PresenceServlet() {
+    public APIConfirmPresence() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,6 +42,11 @@ public class Form2PresenceServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		resp.setContentType("application/json");
+    	resp.setCharacterEncoding("utf-8");
+		setAccessControlHeaders(resp);
+		
+		// Appointment ID
 		Integer id = Integer.valueOf(req.getParameter("id"));
 		AppointmentDAO adao = AppointmentDAOImplementation.getInstance();
 		
@@ -50,14 +55,21 @@ public class Form2PresenceServlet extends HttpServlet {
 		
 		adao.update(app);
 		
-		Patient p = app.getApp_patient();
-		String dni  = p.getDni();
-
-		resp.sendRedirect( req.getContextPath() + "/PatientServlet?pat_dni=" + dni );
+		PrintWriter out = resp.getWriter();
 		
-
-			
-
+    	out.print("200OK");
 	}
+
+	@Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST");
+    }
 
 }

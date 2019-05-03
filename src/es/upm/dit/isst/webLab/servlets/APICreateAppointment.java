@@ -52,6 +52,10 @@ public class APICreateAppointment extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		resp.setContentType("application/json");
+    	resp.setCharacterEncoding("utf-8");
+		setAccessControlHeaders(resp);
+		
 		String doc_dni = req.getParameter("doc_dni");
 		String pat_dni = req.getParameter("pat_dni");
 		Integer start_time = Integer.valueOf(req.getParameter("start_time"));
@@ -63,7 +67,6 @@ public class APICreateAppointment extends HttpServlet {
 		PatientDAO pdao = PatientDAOImplementation.getInstance();
 		Patient patient = pdao.read(pat_dni);
 		
-		setAccessControlHeaders(resp);
 
 		Appointment app = new Appointment();
 		app.setApp_doctor(doctor);
@@ -76,10 +79,7 @@ public class APICreateAppointment extends HttpServlet {
 		adao.create( app );
 		
     	PrintWriter out = resp.getWriter();
-		
-		resp.setContentType("application/json");
-    	resp.setCharacterEncoding("utf-8");
- 
+	
     	out.print("200OK");
 	}
 	
