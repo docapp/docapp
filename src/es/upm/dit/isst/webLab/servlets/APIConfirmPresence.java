@@ -45,7 +45,8 @@ public class APIConfirmPresence extends HttpServlet {
 		resp.setContentType("application/json");
     	resp.setCharacterEncoding("utf-8");
 		setAccessControlHeaders(resp);
-		
+
+
 		// Appointment ID
 		Integer id = Integer.valueOf(req.getParameter("id"));
 		AppointmentDAO adao = AppointmentDAOImplementation.getInstance();
@@ -54,8 +55,9 @@ public class APIConfirmPresence extends HttpServlet {
 		app.setPresence(true);
 		
 		adao.update(app);
-		
 		PrintWriter out = resp.getWriter();
+
+		
 		
     	out.print("200OK");
 	}
@@ -70,6 +72,7 @@ public class APIConfirmPresence extends HttpServlet {
     private void setAccessControlHeaders(HttpServletResponse resp) {
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "POST");
+        resp.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     }
 
 }
