@@ -70,7 +70,6 @@ public class APILogin extends HttpServlet {
 				currentUser.login( token );
 				if ( currentUser.hasRole( "admin" ) ) {
 					System.out.println(" admin" +currentUser.getPrincipal());
-					//out.print("200OK");
 				}
 				else if ( currentUser.hasRole( "doctor" ) ) {
 					DoctorDAO ddao = DoctorDAOImplementation.getInstance();
@@ -85,14 +84,13 @@ public class APILogin extends HttpServlet {
 					out.print(p.toJSON());				
 				}
 				else 
-					resp.sendRedirect( req.getContextPath() + "/LoginServlet");
+					System.out.println(" error" +currentUser.getPrincipal());
+					//out.print();	
 			} catch ( Exception e ) {
-				//resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
 				System.out.println("error");
 			}
 		} else
-			// resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
-			out.print("404");
+			System.out.println("error 404");
 
 	}
 	

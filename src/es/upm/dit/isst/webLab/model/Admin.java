@@ -5,6 +5,8 @@ import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.json.JSONObject;
+
 @Entity
 public class Admin {
 
@@ -38,6 +40,18 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public JSONObject toJSON() {
+	  	  //create Json Object
+	  	  JSONObject json = new JSONObject();
+
+		    // put some value pairs into the JSON object .
+		    json.put("dni", this.dni);
+		    json.put("name", this.name);
+		    json.put("surname", this.surname);
+		    
+			return json;
+		}
 	
 	
 }
