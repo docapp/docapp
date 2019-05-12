@@ -2,7 +2,8 @@ package es.upm.dit.isst.webLab.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.json.JSONArray;
 
-import es.upm.dit.isst.webLab.dao.AppointmentDAO;
-import es.upm.dit.isst.webLab.dao.AppointmentDAOImplementation;
 import es.upm.dit.isst.webLab.dao.DoctorDAO;
 import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
-import es.upm.dit.isst.webLab.dao.PatientDAO;
-import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
 import es.upm.dit.isst.webLab.model.Appointment;
+import es.upm.dit.isst.webLab.model.AppointmentAndPatient;
 import es.upm.dit.isst.webLab.model.Doctor;
 import es.upm.dit.isst.webLab.model.Patient;
+import es.upm.dit.isst.webLab.model.Specialty;
 
 /**
  * Servlet implementation class APILogin
@@ -54,6 +54,9 @@ public class APILogin extends HttpServlet {
 		resp.setContentType("application/json");
     	resp.setCharacterEncoding("utf-8");
 		setAccessControlHeaders(resp);
+		PrintWriter out = resp.getWriter();
+		
+		System.out.println("hola hola hola");
 		
 		String dni = req.getParameter("dni");
 		String pass = req.getParameter( "password");
@@ -63,23 +66,52 @@ public class APILogin extends HttpServlet {
 			UsernamePasswordToken token = new UsernamePasswordToken( dni, pass );
 			try {
 				currentUser.login( token );
-				if ( currentUser.hasRole( "admin" ) )
+			if ( currentUser.hasRole( "admin" ) )
 					resp.sendRedirect( req.getContextPath() + "/AdminServlet?admin_dni=" + currentUser.getPrincipal() );
-				else if ( currentUser.hasRole( "doctor" ) )
-					resp.sendRedirect( req.getContextPath() + "/DoctorServlet?dni=" + currentUser.getPrincipal() );
+				else if ( currentUser.hasRole( "doctor" ) ) {
+					DoctorDAO pdao = DoctorDAOImplementation.getInstance();
+					Doctor p = pdao.read(dni);
+					
+					Collection<Appointment> appointments = p.getAppointments();
+					Collection<AppointmentAndPatient> anotherList = new ArrayList<AppointmentAndPatient>();
+					
+					for (Appointment app : appointments ) {
+						
+						AppointmentAndPatient obj = new AppointmentAndPatient();
+						
+						Patient pat = app.getApp_patient();
+						obj.setId(app.getId());
+						obj.setApp_doctor(app.getApp_doctor());
+						obj.setApp_patient(app.getApp_patient());
+						obj.setDate(app.getDate());
+						obj.setStart_time(app.getStart_time());
+						obj.setPresence(app.getPresence());
+						obj.setPatient(pat);
+						
+						anotherList.add(obj);
+					}
+					
+					JSONArray array = new JSONArray();
+
+			    	for(AppointmentAndPatient a : anotherList) {
+			    		array.put(a.toJSON());
+			    	}
+			    	
+			    	out.print(array.toString());
+				}
 				else if ( currentUser.hasRole( "patient" ) )
 					resp.sendRedirect( req.getContextPath() + "/PatientServlet?pat_dni=" + currentUser.getPrincipal() );
 				else 
 					resp.sendRedirect( req.getContextPath() + "/LoginServlet");
 			} catch ( Exception e ) {
-				resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
+				//resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
+				System.out.println("error");
 			}
 		} else
-			resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
+			// resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
 		
-    	PrintWriter out = resp.getWriter();
-	
-    	out.print("200OK");
+    	out.print(dni);
+
 	}
 	
 	@Override

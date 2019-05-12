@@ -56,8 +56,6 @@ public class DoctorServlet extends HttpServlet {
 		}
 		
 		req.getSession().setAttribute( "anotherList", anotherList);
-
-		
 		
 		getServletContext().getRequestDispatcher( "/DoctorView.jsp" ).forward( req, resp );
 	}
