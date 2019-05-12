@@ -15,9 +15,12 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import es.upm.dit.isst.webLab.dao.DoctorDAO;
 import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
+import es.upm.dit.isst.webLab.dao.PatientDAO;
+import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
 import es.upm.dit.isst.webLab.model.Appointment;
 import es.upm.dit.isst.webLab.model.AppointmentAndPatient;
 import es.upm.dit.isst.webLab.model.Doctor;
@@ -55,52 +58,32 @@ public class APILogin extends HttpServlet {
     	resp.setCharacterEncoding("utf-8");
 		setAccessControlHeaders(resp);
 		PrintWriter out = resp.getWriter();
-		
-		System.out.println("hola hola hola");
-		
+			
 		String dni = req.getParameter("dni");
 		String pass = req.getParameter( "password");
 
 		Subject currentUser = SecurityUtils.getSubject();
+		
 		if ( !currentUser.isAuthenticated() ) {
 			UsernamePasswordToken token = new UsernamePasswordToken( dni, pass );
 			try {
 				currentUser.login( token );
-			if ( currentUser.hasRole( "admin" ) )
-					resp.sendRedirect( req.getContextPath() + "/AdminServlet?admin_dni=" + currentUser.getPrincipal() );
-				else if ( currentUser.hasRole( "doctor" ) ) {
-					DoctorDAO pdao = DoctorDAOImplementation.getInstance();
-					Doctor p = pdao.read(dni);
-					
-					Collection<Appointment> appointments = p.getAppointments();
-					Collection<AppointmentAndPatient> anotherList = new ArrayList<AppointmentAndPatient>();
-					
-					for (Appointment app : appointments ) {
-						
-						AppointmentAndPatient obj = new AppointmentAndPatient();
-						
-						Patient pat = app.getApp_patient();
-						obj.setId(app.getId());
-						obj.setApp_doctor(app.getApp_doctor());
-						obj.setApp_patient(app.getApp_patient());
-						obj.setDate(app.getDate());
-						obj.setStart_time(app.getStart_time());
-						obj.setPresence(app.getPresence());
-						obj.setPatient(pat);
-						
-						anotherList.add(obj);
-					}
-					
-					JSONArray array = new JSONArray();
-
-			    	for(AppointmentAndPatient a : anotherList) {
-			    		array.put(a.toJSON());
-			    	}
-			    	
-			    	out.print(array.toString());
+				if ( currentUser.hasRole( "admin" ) ) {
+					System.out.println(" admin" +currentUser.getPrincipal());
+					//out.print("200OK");
 				}
-				else if ( currentUser.hasRole( "patient" ) )
-					resp.sendRedirect( req.getContextPath() + "/PatientServlet?pat_dni=" + currentUser.getPrincipal() );
+				else if ( currentUser.hasRole( "doctor" ) ) {
+					DoctorDAO ddao = DoctorDAOImplementation.getInstance();
+					Doctor d = ddao.read(dni);
+					System.out.println(" doctor" +currentUser.getPrincipal());
+					out.print(d.toJSON());
+				}
+				else if ( currentUser.hasRole( "patient" ) ) {
+					System.out.println(" patient" +currentUser.getPrincipal());
+					PatientDAO pdao = PatientDAOImplementation.getInstance();
+					Patient p = pdao.read(dni);
+					out.print(p.toJSON());				
+				}
 				else 
 					resp.sendRedirect( req.getContextPath() + "/LoginServlet");
 			} catch ( Exception e ) {
@@ -109,8 +92,7 @@ public class APILogin extends HttpServlet {
 			}
 		} else
 			// resp.sendRedirect( req.getContextPath() + "/LoginServlet" );
-		
-    	out.print(dni);
+			out.print("404");
 
 	}
 	
