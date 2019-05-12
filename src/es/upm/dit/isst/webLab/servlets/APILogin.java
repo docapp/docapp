@@ -17,10 +17,13 @@ import org.apache.shiro.subject.Subject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import es.upm.dit.isst.webLab.dao.AdminDAO;
+import es.upm.dit.isst.webLab.dao.AdminDAOImplementation;
 import es.upm.dit.isst.webLab.dao.DoctorDAO;
 import es.upm.dit.isst.webLab.dao.DoctorDAOImplementation;
 import es.upm.dit.isst.webLab.dao.PatientDAO;
 import es.upm.dit.isst.webLab.dao.PatientDAOImplementation;
+import es.upm.dit.isst.webLab.model.Admin;
 import es.upm.dit.isst.webLab.model.Appointment;
 import es.upm.dit.isst.webLab.model.AppointmentAndPatient;
 import es.upm.dit.isst.webLab.model.Doctor;
@@ -70,6 +73,9 @@ public class APILogin extends HttpServlet {
 				currentUser.login( token );
 				if ( currentUser.hasRole( "admin" ) ) {
 					System.out.println(" admin" +currentUser.getPrincipal());
+					AdminDAO adao = AdminDAOImplementation.getInstance();
+					Admin a = adao.read(dni);
+					out.print(a.toJSON());
 				}
 				else if ( currentUser.hasRole( "doctor" ) ) {
 					DoctorDAO ddao = DoctorDAOImplementation.getInstance();
