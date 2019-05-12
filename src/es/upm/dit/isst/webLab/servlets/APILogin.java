@@ -75,19 +75,25 @@ public class APILogin extends HttpServlet {
 					System.out.println(" admin" +currentUser.getPrincipal());
 					AdminDAO adao = AdminDAOImplementation.getInstance();
 					Admin a = adao.read(dni);
-					out.print(a.toJSON());
+					JSONObject adm = a.toJSON();
+					adm.put("role", "Administracion");
+					out.print(adm);
 				}
 				else if ( currentUser.hasRole( "doctor" ) ) {
 					DoctorDAO ddao = DoctorDAOImplementation.getInstance();
 					Doctor d = ddao.read(dni);
 					System.out.println(" doctor" +currentUser.getPrincipal());
-					out.print(d.toJSON());
+					JSONObject doc = d.toJSON();
+					doc.put("role", "Doctor");
+					out.print(doc);
 				}
 				else if ( currentUser.hasRole( "patient" ) ) {
 					System.out.println(" patient" +currentUser.getPrincipal());
 					PatientDAO pdao = PatientDAOImplementation.getInstance();
 					Patient p = pdao.read(dni);
-					out.print(p.toJSON());				
+					JSONObject pat = p.toJSON();
+					pat.put("role", "Paciente");
+					out.print(pat);				
 				}
 				else 
 					System.out.println(" error" +currentUser.getPrincipal());
